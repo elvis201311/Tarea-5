@@ -2,9 +2,28 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <StartWorkingDirectory>$(MSBuldProjectDirectory)</StartWorkingDirectory>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Prestamo_con_Detalla</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\TeacherControl.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

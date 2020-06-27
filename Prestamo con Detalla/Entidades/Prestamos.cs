@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Prestamo_con_Detalla.Entidades
 {
-    class Prestamos
+    public class Prestamos
     {
         [Key]
         public int MoraId { get; set; }
@@ -18,5 +18,4 @@ namespace Prestamo_con_Detalla.Entidades
         public List<MorasDetalle> Detalle { get; set; } = new List<MorasDetalle>();
     }
 }
-    }
-}
+

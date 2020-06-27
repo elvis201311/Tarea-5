@@ -5,19 +5,20 @@ using System.Text;
 
 namespace Prestamo_con_Detalla.Entidades
 {
-    class MorasDetalle
+   public class MorasDetalle
     {
+        public MorasDetalle( int prestamoId, float valor)
+        {
+            Id = 0;
+            PrestamoId = prestamoId;
+            Valor = valor;
+        }
+
         [Key]
         public int Id { get; set; }
         public int PrestamoId { get; set; }
-        public string Requerimiento { get; set; }
         public float Valor { get; set; }
-        public MorasDetalle(int Prestamoid, string requerimiento, float valor)
-        {
-            Id = 0;
-            PrestamoId = Prestamoid;
-            Requerimiento = requerimiento;
-            Valor = valor;
-        }
+
+        
     }
 }
