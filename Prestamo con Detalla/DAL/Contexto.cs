@@ -9,7 +9,7 @@ namespace Prestamo_con_Detalla.DAL
    
         public class Contexto : DbContext
         {
-            public DbSet<Prestamos> Prestamos { get; set; }
+            public DbSet<Moras> Prestamos { get; set; }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
