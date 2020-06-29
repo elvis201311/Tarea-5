@@ -11,7 +11,7 @@ namespace Prestamo_con_Detalla.BLL
 {
     public class PrestamosBLL
     {
-        //=====================================================[ GUARDAR ]=====================================================
+        //---[ GUARDAR ]---
         public static bool Guardar(Prestamos prestamos)
         {
             if (!Existe(prestamos.PrestamoId))
@@ -19,7 +19,7 @@ namespace Prestamo_con_Detalla.BLL
             else
                 return Modificar(prestamos);
         }
-        //=====================================================[ INSERTAR ]=====================================================
+        //---[ INSERTAR ]---
         private static bool Insertar(Prestamos prestamos)
         {
             bool paso = false;
@@ -39,21 +39,21 @@ namespace Prestamo_con_Detalla.BLL
             }
             return paso;
         }
-        //=====================================================[ MODIFICAR ]=====================================================
+        //---[ MODIFICAR ]---
         public static bool Modificar(Prestamos prestamos)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                //-------------------------------------------[ REGISTRO DETALLADO ]-------------------------------------------------
+                //---[ REGISTRO DETALLADO ]---
                 contexto.Database.ExecuteSqlRaw($"Delete FROM MorasDetalle Where PrestamoId={prestamos.PrestamoId}");
 
                 foreach (var item in prestamos.Detalle)
                 {
                     contexto.Entry(item).State = EntityState.Added;
                 }
-                //------------------------------------------------------------------------------------------------------------------
+               
 
                 contexto.Entry(prestamos).State = EntityState.Modified;
                 paso = contexto.SaveChanges() > 0;
@@ -68,7 +68,7 @@ namespace Prestamo_con_Detalla.BLL
             }
             return paso;
         }
-        //=====================================================[ ELIMINAR ]=====================================================
+        //---[ ELIMINAR ]---
         public static bool Eliminar(int id)
         {
             bool paso = false;
@@ -115,7 +115,7 @@ namespace Prestamo_con_Detalla.BLL
             }
             return prestamos;
         }
-        //=====================================================[ GET LIST ]===================================================== 
+        //---[ GET LIST ]---
         public static List<Prestamos> GetList(Expression<Func<Prestamos, bool>> criterio)
         {
             List<Prestamos> lista = new List<Prestamos>();

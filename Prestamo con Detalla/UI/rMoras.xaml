@@ -1,0 +1,101 @@
+﻿<Window x:Class="Prestamo_con_Detalla.UI.rMoras"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Prestamo_con_Detalla.UI"
+        mc:Ignorable="d"
+        Title="rMoras" Height="650" Width="800">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            
+            <Label Content="Mora Id" FontWeight="Bold" FontSize="16" />
+            <StackPanel Orientation="Horizontal" >
+                <TextBox x:Name="MoraIdTextbox" Text="{Binding MoraId}"  FontSize="16" VerticalContentAlignment="Center" Width="260" Background="#19000000"/>
+                
+                <Button x:Name="BuscarButton" Click="BuscarButton_Click" Margin="75,0,0,0" Width="120">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="25" Source="/Resources/Buscar.png" />
+                        <Label Content="Buscar" FontSize="15" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+           
+            <Label Content="Fecha Mora" FontWeight="Bold" FontSize="13"/>
+            <DatePicker x:Name="FechaMoraDataPicker" SelectedDate="{Binding FechaMora}" FontSize="13" SelectedDateFormat="Short" VerticalContentAlignment="Center"/>
+          
+            <Label Content="Monto" FontWeight="Bold" FontSize="13"/>
+            <TextBox x:Name="MontoTextbox" Text="{Binding Monto}" FontSize="18" VerticalContentAlignment="Center"/>
+            
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Detalle Moras" Margin="0,5,0,0">
+                    <StackPanel>
+                        <Label Content="Id"/>
+                        <TextBox x:Name="IdTextBox" Text="{Binding Detalle.IdDetalle}" Height="20"/>
+
+                        <Label Content="Mora Id"/>
+                        <TextBox x:Name="MoraIdDetalleTextBox" Text="{Binding Detalle.MoraId}" Height="20"/>
+
+                        <Label Content="Prestamo Id"/>
+                        <TextBox x:Name="PrestamoIdDetalleTextBox" Text="{Binding Detalle.PrestamoId}" Height="20"/>
+
+                        <Label Content="Fecha"/>
+                        <DatePicker x:Name="FechaDetalleaDataPicker" DisplayDate="{Binding Detalle.FechaMoraDetalle}" FontSize="13" SelectedDateFormat="Short" VerticalContentAlignment="Center"/>
+
+                        <Label Content="Valor"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="ValorTextBox" Text="{Binding Detalle.Valor}" Width="300"/>
+                            <Button x:Name="AgregarFilaButton" Margin="20,0,0,0" Click="AgregarFilaButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Mas.png" Height="25"/>
+                                    <Label Content="Agregar fila"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="RemoverFilaButton" Margin="20,0,0,0" Click="RemoverFilaButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Eliminar.png" Height="25"/>
+                                    <Label Content="Eliminar fila"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <DataGrid x:Name="DetalleDataGrid" Height="100" AutoGenerateColumns="False" ItemsSource="{Binding Detalle}" Margin="0,10,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="PrestamoId" Binding="{Binding PrestamoId}"/>
+                                <DataGridTextColumn Header="MoraId" Binding="{Binding MoraId}"/>
+                                <DataGridTextColumn Header="FechaMora" Binding="{Binding FechaMoraDetalle}"/>
+                                <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+           
+            <StackPanel Orientation="Horizontal" Height="35" Margin="0,5,0,0" HorizontalAlignment="Center">
+                <Button x:Name="NuevoButton" Width="130" Click="NuevoButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Nuevo" FontSize="17" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+             
+                <Button x:Name="GuardarButton" Margin="30,0,0,0" Width="130" Click="GuardarButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="30" Source="/Resources/Guardar.png"/>
+                        <Label Content="Guardar" FontSize="17" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+           
+                <Button x:Name="EliminarButton" Margin="30,0,0,0" Width="130" Click="EliminarButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="30" Source="/Resources/Eliminar.png"/>
+                        <Label Content="Eliminar" FontSize="17" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
+
+        </StackPanel>
+    </Grid>
+</Window>

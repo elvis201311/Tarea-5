@@ -16,13 +16,36 @@ namespace Prestamo_con_Detalla.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.5");
 
-            modelBuilder.Entity("Prestamo_con_Detalla.Entidades.MorasDetalle", b =>
+            modelBuilder.Entity("Prestamo_con_Detalla.Entidades.Moras", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MoraId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("IdArticulo")
+                    b.Property<DateTime>("FechaMora")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PrestamoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("MoraId");
+
+                    b.ToTable("Moras");
+                });
+
+            modelBuilder.Entity("Prestamo_con_Detalla.Entidades.MorasDetalle", b =>
+                {
+                    b.Property<int>("IdDetalle")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FechaMoraDetalle")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MoraId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PrestamoId")
@@ -31,35 +54,48 @@ namespace Prestamo_con_Detalla.Migrations
                     b.Property<float>("Valor")
                         .HasColumnType("REAL");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdDetalle");
 
-                    b.HasIndex("IdArticulo");
+                    b.HasIndex("MoraId");
+
+                    b.HasIndex("PrestamoId");
 
                     b.ToTable("MorasDetalle");
                 });
 
             modelBuilder.Entity("Prestamo_con_Detalla.Entidades.Prestamos", b =>
                 {
-                    b.Property<int>("MoraId")
+                    b.Property<int>("PrestamoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("total")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Monto")
+                        .HasColumnType("REAL");
 
-                    b.HasKey("MoraId");
+                    b.Property<string>("Nombre")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PrestamoId");
 
                     b.ToTable("Prestamos");
                 });
 
             modelBuilder.Entity("Prestamo_con_Detalla.Entidades.MorasDetalle", b =>
                 {
+                    b.HasOne("Prestamo_con_Detalla.Entidades.Moras", null)
+                        .WithMany("Detalle")
+                        .HasForeignKey("MoraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Prestamo_con_Detalla.Entidades.Prestamos", null)
                         .WithMany("Detalle")
-                        .HasForeignKey("IdArticulo");
+                        .HasForeignKey("PrestamoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

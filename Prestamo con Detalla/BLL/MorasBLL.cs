@@ -11,7 +11,7 @@ namespace Prestamo_con_Detalla.BLL
 {
     public class MorasBLL
     {
-        //=====================================================[ GUARDAR ]=====================================================
+        //---[ GUARDAR ]---
         public static bool Guardar(Moras moras)
         {
             if (!Existe(moras.MoraId))
@@ -19,7 +19,7 @@ namespace Prestamo_con_Detalla.BLL
             else
                 return Modificar(moras);
         }
-        //=====================================================[ INSERTAR ]=====================================================
+        //---[ INSERTAR ]---
         private static bool Insertar(Moras moras)
         {
             bool paso = false;
@@ -39,21 +39,21 @@ namespace Prestamo_con_Detalla.BLL
             }
             return paso;
         }
-        //=====================================================[ MODIFICAR ]=====================================================
+        //---[ MODIFICAR ]---
         public static bool Modificar(Moras moras)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                //-------------------------------------------[ REGISTRO DETALLADO ]-------------------------------------------------
+                //---[ REGISTRO DETALLADO ]---
                 contexto.Database.ExecuteSqlRaw($"Delete FROM MorasDetalle Where MoraId={moras.MoraId}");
 
                 foreach (var item in moras.Detalle)
                 {
                     contexto.Entry(item).State = EntityState.Added;
                 }
-                //------------------------------------------------------------------------------------------------------------------
+               
 
                 contexto.Entry(moras).State = EntityState.Modified;
                 paso = contexto.SaveChanges() > 0;
@@ -68,7 +68,7 @@ namespace Prestamo_con_Detalla.BLL
             }
             return paso;
         }
-        //=====================================================[ ELIMINAR ]=====================================================
+        //---[ ELIMINAR ]---
         public static bool Eliminar(int id)
         {
             bool paso = false;
@@ -92,22 +92,21 @@ namespace Prestamo_con_Detalla.BLL
             }
             return paso;
         }
-        //=====================================================[ BUSCAR ]=====================================================
+        //---[ BUSCAR ]---
         public static Moras Buscar(int id)
         {
-            //-------------------[ REGISTRO DETALLADO ] -------------------
+            //---[ REGISTRO DETALLADO ] ---
             Moras moras = new Moras();
-            //-------------------------------------------------------------
+           
             Contexto contexto = new Contexto();
-            //Moras moras;
+           
             try
             {
-                //-------------------[ REGISTRO DETALLADO ] -------------------
+                
                 moras = contexto.Moras.Include(x => x.Detalle)
                     .Where(x => x.MoraId == id)
                     .SingleOrDefault();
-                //-------------------------------------------------------------
-                //moras = contexto.Moras.Find(id);
+                
             }
             catch (Exception)
             {
@@ -119,7 +118,7 @@ namespace Prestamo_con_Detalla.BLL
             }
             return moras;
         }
-        //=====================================================[ GET LIST ]===================================================== 
+        //---[ GET LIST ]---
         public static List<Moras> GetList(Expression<Func<Moras, bool>> criterio)
         {
             List<Moras> lista = new List<Moras>();
@@ -138,7 +137,7 @@ namespace Prestamo_con_Detalla.BLL
             }
             return lista;
         }
-        //=====================================================[ EXISTE ]===================================================== 
+        //---[ EXISTE ]---
         public static bool Existe(int id)
         {
             Contexto contexto = new Contexto();
