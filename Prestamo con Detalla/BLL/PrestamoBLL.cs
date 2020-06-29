@@ -1,32 +1,32 @@
-﻿using Prestamo_con_Detalla.Entidades;
+﻿using Microsoft.EntityFrameworkCore;
+using Prestamo_con_Detalla.DAL;
+using Prestamo_con_Detalla.Entidades;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
-using Prestamo_con_Detalla.DAL;
+using System.Text;
 
 namespace Prestamo_con_Detalla.BLL
 {
-    public class MorasBLL
+    public class PrestamosBLL
     {
         //=====================================================[ GUARDAR ]=====================================================
-        public static bool Guardar(Moras moras)
+        public static bool Guardar(Prestamos prestamos)
         {
-            if (!Existe(moras.MoraId))
-                return Insertar(moras);
+            if (!Existe(prestamos.PrestamoId))
+                return Insertar(prestamos);
             else
-                return Modificar(moras);
+                return Modificar(prestamos);
         }
         //=====================================================[ INSERTAR ]=====================================================
-        private static bool Insertar(Moras moras)
+        private static bool Insertar(Prestamos prestamos)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                contexto.Moras.Add(moras);
+                contexto.Prestamos.Add(prestamos);
                 paso = contexto.SaveChanges() > 0;
             }
             catch (Exception)
@@ -40,22 +40,22 @@ namespace Prestamo_con_Detalla.BLL
             return paso;
         }
         //=====================================================[ MODIFICAR ]=====================================================
-        public static bool Modificar(Moras moras)
+        public static bool Modificar(Prestamos prestamos)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
                 //-------------------------------------------[ REGISTRO DETALLADO ]-------------------------------------------------
-                contexto.Database.ExecuteSqlRaw($"Delete FROM MorasDetalle Where MoraId={moras.MoraId}");
+                contexto.Database.ExecuteSqlRaw($"Delete FROM MorasDetalle Where PrestamoId={prestamos.PrestamoId}");
 
-                foreach (var item in moras.Detalle)
+                foreach (var item in prestamos.Detalle)
                 {
                     contexto.Entry(item).State = EntityState.Added;
                 }
                 //------------------------------------------------------------------------------------------------------------------
 
-                contexto.Entry(moras).State = EntityState.Modified;
+                contexto.Entry(prestamos).State = EntityState.Modified;
                 paso = contexto.SaveChanges() > 0;
             }
             catch (Exception)
@@ -75,10 +75,10 @@ namespace Prestamo_con_Detalla.BLL
             Contexto contexto = new Contexto();
             try
             {
-                var moras = contexto.Moras.Find(id);
-                if (moras != null)
+                var prestamos = contexto.Prestamos.Find(id);
+                if (prestamos != null)
                 {
-                    contexto.Moras.Remove(moras);
+                    contexto.Prestamos.Remove(prestamos);
                     paso = contexto.SaveChanges() > 0;
                 }
             }
@@ -93,21 +93,17 @@ namespace Prestamo_con_Detalla.BLL
             return paso;
         }
         //=====================================================[ BUSCAR ]=====================================================
-        public static Moras Buscar(int id)
+        public static Prestamos Buscar(int id)
         {
             //-------------------[ REGISTRO DETALLADO ] -------------------
-            Moras moras = new Moras();
-            //-------------------------------------------------------------
+            Prestamos prestamos = new Prestamos();
             Contexto contexto = new Contexto();
-            //Moras moras;
             try
             {
-                //-------------------[ REGISTRO DETALLADO ] -------------------
-                moras = contexto.Moras.Include(x => x.Detalle)
-                    .Where(x => x.MoraId == id)
+                prestamos = contexto.Prestamos.Include(x => x.Detalle)
+                    .Where(x => x.PrestamoId == id)
                     .SingleOrDefault();
                 //-------------------------------------------------------------
-                //moras = contexto.Moras.Find(id);
             }
             catch (Exception)
             {
@@ -117,16 +113,16 @@ namespace Prestamo_con_Detalla.BLL
             {
                 contexto.Dispose();
             }
-            return moras;
+            return prestamos;
         }
         //=====================================================[ GET LIST ]===================================================== 
-        public static List<Moras> GetList(Expression<Func<Moras, bool>> criterio)
+        public static List<Prestamos> GetList(Expression<Func<Prestamos, bool>> criterio)
         {
-            List<Moras> lista = new List<Moras>();
+            List<Prestamos> lista = new List<Prestamos>();
             Contexto contexto = new Contexto();
             try
             {
-                lista = contexto.Moras.Where(criterio).ToList();
+                lista = contexto.Prestamos.Where(criterio).ToList();
             }
             catch (Exception)
             {
@@ -145,7 +141,7 @@ namespace Prestamo_con_Detalla.BLL
             bool encontrado = false;
             try
             {
-                encontrado = contexto.Moras.Any(d => d.MoraId == id);
+                encontrado = contexto.Prestamos.Any(d => d.PrestamoId == id);
             }
             catch (Exception)
             {

@@ -6,16 +6,16 @@ using System.Text;
 
 namespace Prestamo_con_Detalla.Entidades
 {
-    public class Moras
+    public class Prestamos
     {
         [Key]
-        public int MoraId { get; set; }
-        public DateTime FechaMora { get; set; } = DateTime.Now;
-        public double Total { get; set; }
+        public int PrestamoId { get; set; }
+        public string Nombre { get; set; }
+        public DateTime Fecha { get; set; } = DateTime.Now;
+        public double Monto { get; set; }
 
-        
-        [ForeignKey("MoraId")]
+        //REGISTRO DETALLADO
+        [ForeignKey("PrestamoId")]
         public List<MorasDetalle> Detalle { get; set; } = new List<MorasDetalle>();
-        public int PrestamoId { get; internal set; }
     }
 }
