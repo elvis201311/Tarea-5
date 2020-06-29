@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Prestamo_con_Detalla.UI"
         mc:Ignorable="d"
-        Title="rMoras" Height="650" Width="800">
+        Title="rMoras" Height="650" Width="600">
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             

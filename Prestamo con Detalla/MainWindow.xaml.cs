@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prestamo_con_Detalla.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,20 @@ namespace Prestamo_con_Detalla
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            {
+                rMoras rMoras = new rMoras();
+                rMoras.Show();
+            }
+        }
+
+        private void Button_Clickitem(object sender, RoutedEventArgs e)
+        {
+            rPrestamo rPrestamos = new rPrestamo();
+            rPrestamos.Show();
+        }
     }
 }
+    
